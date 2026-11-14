@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Skills Investment Proof — Skills Graph / Relate</title>
+  <meta name="description" content="Local, Relate-backed demo of training-seat capacity and graph dependencies.">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="top">
+      <div class="brand"><div class="brand-mark">n<span>·</span></div><div><strong>Skills Graph</strong><small>SKILLS INVESTMENT PROOF <span class="pill muted">LOCAL DEMO</span></small></div></div>
+      <div class="right-top"><span class="live-mark"></span><span id="status">Connecting to embedded Relate…</span><span class="pill">SYNTHETIC DATA</span></div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="eyebrow">A better question before funding a training program</div>
+        <h1>Which skills can this<br><em>investment actually support?</em></h1>
+        <p>Change one shared resource. Follow its dependency paths through training programs, skills and occupations. See what truly changes—and what doesn't.</p>
+      </section>
+      <section class="toolbar" aria-label="Scenario controls">
+        <div class="control"><div class="control-label"><label for="capacity">Shared cyber laboratory capacity</label><strong><span id="capacity-value">100</span><span class="units"> seats</span></strong></div>
+          <input id="capacity" type="range" min="0" max="200" step="10" value="100" aria-label="Scenario B laboratory capacity">
+          <div class="range-label"><span>0 · unavailable</span><span>140 · original</span><span>200 · expanded</span></div>
+        </div>
+        <div class="action-controls"><button id="btn-a" type="button" class="button">Restore 140</button><button id="btn-b" type="button" class="button primary">Apply disruption: 100</button></div>
+      </section>
+      <div role="alert" class="error" id="error" hidden></div>
+      <section class="metrics" aria-label="A B A scenario results">
+        <article class="metric"><span class="metric-label">A · Original capacity</span><div class="metric-number"><span id="seats-a">—</span><small> / 180 seats</small></div><span class="metric-foot">140 lab units available</span></article>
+        <article class="metric focus"><span class="metric-label">B · Current scenario</span><div class="metric-number"><span id="seats-b">—</span><small> / 180 seats</small></div><span class="metric-foot" id="seats-delta">Calculating…</span></article>
+        <article class="metric"><span class="metric-label">A · Restored</span><div class="metric-number"><span id="seats-r">—</span><small> / 180 seats</small></div><span class="metric-foot" id="restored">Checking restoration…</span></article>
+      </section>
+      <section class="main-grid">
+        <article class="panel graph-panel"><div class="panel-head"><div><span class="section-tag">RELATE GRAPH · LIVE CYPHER</span><h2>Follow the dependencies</h2></div><span class="pill muted">Resource → Program → Skill → Occupation</span></div>
+          <div class="legend"><span><i class="dot resource"></i>Resource</span><span><i class="dot program"></i>Program</span><span><i class="dot skill"></i>Skill</span><span><i class="dot occupation"></i>Occupation</span><span><i class="dot impact"></i>Measured change</span></div>
+          <div class="graph-container"><svg role="img" aria-label="Interactive dependency network read from embedded Relate" id="graph" viewBox="0 0 1000 500"></svg></div>
+          <p class="graph-note">Graph relationships are read from embedded Relate. Highlights indicate changes in <strong>seat opportunities or bottleneck proxies</strong>, not changes in employment or actual skills learned.</p>
+        </article>
+        <article class="panel impact-panel"><div class="panel-head"><div><span class="section-tag">EXPLAINABILITY</span><h2>What actually changes?</h2></div></div>
+          <div id="programs" class="program-list" aria-live="polite"></div>
+          <h3>Occupation bottleneck proxies</h3>
+          <div id="roles" class="role-list"></div>
+          <p class="quiet">A related occupation is <strong>not</strong> necessarily an affected occupation. Seats can appear against multiple skills and occupations; these are proxies, not counts of graduates or workers.</p>
+        </article>
+      </section>
+      <section class="bottom-grid"><article class="panel proof"><span class="section-tag">REPRODUCIBLE PROOF</span><h2>Same world. Independent calculation.</h2>
+        <div class="checks"><div><span id="parity-icon" class="check-icon">—</span><div><strong id="parity">Checking parity</strong><small>Graph-derived planning vs Python/JSON baseline</small></div></div><div><span id="restore-icon" class="check-icon">—</span><div><strong id="restore-proof">Checking restoration</strong><small>A → B → A, including program-level seat counts</small></div></div></div>
+        <details><summary>Inspect the Cypher evidence path</summary><pre>MATCH (r:Resource {id: $rid})&lt;-[:USES_RESOURCE]-(p:Program)
+      -[:DEVELOPS]-&gt;(s:Skill)&lt;-[:REQUIRES]-(o:Occupation)
+RETURN p.id AS program, s.id AS skill, o.id AS occupation</pre></details>
+      </article><article class="panel disclaim"><span class="section-tag">WHAT THIS DOES NOT CLAIM</span><h2>Boundaries of the result</h2><p>All training programs and resource capacities in this demo are <strong>fictional</strong>. Allocation follows a <strong>fixed priority</strong>, not globally optimal scheduling. No claim is made about actual competencies acquired, employment outcomes, or superiority over SQL, JSON joins or OR-Tools.</p>
+      <p class="footnote">Relate: <strong id="db-version">—</strong> · Graph source: embedded <code>.rl</code> · Workload: one local user.</p></article></section>
+    </main><footer>SG / Skills Investment Proof · Relate by Neo4j Hackathon 2026 · New, isolated synthetic prototype</footer>
+  </div>
+</body>
+</html>

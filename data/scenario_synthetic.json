@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "title": "Skills Investment Proof — FICTIONAL regional program",
+    "provenance": "Synthetic authored example, not official ESCO or Moroccan workforce data",
+    "time_window": "2026-W50",
+    "unit": "training seats per shared time window",
+    "rule": "Each seat in a program consumes one unit of every required resource; programs are allocated in fixed priority order, not globally optimized."
+  },
+  "resources": [
+    {"id": "LAB-SOC", "name": "Shared cyber laboratory", "capacity": 140},
+    {"id": "CLASSROOM", "name": "Shared classroom", "capacity": 250},
+    {"id": "DATA-LAB", "name": "Data training laboratory", "capacity": 40}
+  ],
+  "programs": [
+    {"id": "P-SOC", "name": "SOC Operations", "seats": 80, "priority": 1, "resources": ["LAB-SOC", "CLASSROOM"], "skills": ["SIEM", "INCIDENT"]},
+    {"id": "P-CLOUD", "name": "Cloud Security", "seats": 60, "priority": 2, "resources": ["LAB-SOC", "CLASSROOM"], "skills": ["SIEM", "CLOUDSEC"]},
+    {"id": "P-DATA", "name": "Data Analysis", "seats": 40, "priority": 3, "resources": ["DATA-LAB", "CLASSROOM"], "skills": ["DATAENG"]}
+  ],
+  "skills": [
+    {"id": "SIEM", "name": "Security event analysis"},
+    {"id": "INCIDENT", "name": "Incident response"},
+    {"id": "CLOUDSEC", "name": "Cloud security controls"},
+    {"id": "DATAENG", "name": "Data analysis"}
+  ],
+  "occupations": [
+    {"id": "SOC-ANALYST", "name": "SOC analyst", "skills": ["SIEM", "INCIDENT"]},
+    {"id": "CLOUD-ENG", "name": "Cloud security engineer", "skills": ["SIEM", "CLOUDSEC"]},
+    {"id": "DATA-ANALYST", "name": "Data analyst", "skills": ["DATAENG"]}
+  ],
+  "scenario": {"resource": "LAB-SOC", "capacity_a": 140, "capacity_b": 100}
+}
